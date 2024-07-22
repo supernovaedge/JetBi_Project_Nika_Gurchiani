@@ -13,6 +13,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { deleteRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from "@salesforce/apex";
 import getMetadata from '@salesforce/apex/sensorRecordsController.getCustomMetadata';
+import downloadSensorRecordsCSV from '@salesforce/apex/sensorRecordsController.downloadSensorRecordsCSV';
 
 const actions = [
     { label: 'Delete', name: 'delete' },
@@ -56,28 +57,6 @@ export default class sensorRecordsLWC extends LightningElement {
             {label:'200', value:'200'}
         ];
     } 
-    
-    
-    downloadCSV() {
-        downloadSensorRecordsCSV({ recordId: this.recordId })
-            .then(result => {
-                let csvContent = "data:text/csv;charset=utf-8," + result;
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", "sensorRecords.csv");
-                document.body.appendChild(link); // Mozilla firefox specific
-                link.click(); 
-                
-                // Show success toast message
-                this.showToast('Success', 'The CSV file has been downloaded.', 'success');
-            })
-            .catch(error => {
-                console.error('Error downloading the CSV file', error);
-                // Show error toast message
-                this.showToast('Error', 'Failed to download the CSV file.', 'error');
-            });
-    }
     
     
     /************************************************************************
@@ -235,5 +214,27 @@ export default class sensorRecordsLWC extends LightningElement {
     }
     get disableLast() {
         return this.pageNumber == this.totalPages;
+    }
+
+
+    downloadCSV() {
+        downloadSensorRecordsCSV({ recordId: this.recordId })
+            .then(result => {
+                let csvContent = "data:text/csv;charset=utf-8," + result;
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "sensorRecords.csv");
+                document.body.appendChild(link); // Mozilla firefox specific
+                link.click(); 
+                
+                // Show success toast message
+                this.showNotification('Success', 'The CSV file has been downloaded.', 'success');
+            })
+            .catch(error => {
+                console.error('Error downloading the CSV file', error);
+                // Show error toast message
+                this.showNotification('Error', 'Failed to download the CSV file.', 'error');
+            });
     }
 }

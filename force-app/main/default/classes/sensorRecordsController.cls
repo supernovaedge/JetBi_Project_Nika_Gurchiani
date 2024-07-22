@@ -4,7 +4,7 @@ public with sharing class sensorRecordsController {
     * @Description  This Method is used to return CSV string for Sensor records.
     *********************************************************************************************************************************************/
     @AuraEnabled
-    public static String downloadSensorsCSV() {
+    public static String downloadSensorRecordsCSV() {
         // Query for Sensor records
         List<Sensor__c> sensors = [SELECT Status__c, Sensor_Model__c, Base_Station__c, Base_Station__r.Name FROM Sensor__c ORDER BY CreatedDate DESC];
         
