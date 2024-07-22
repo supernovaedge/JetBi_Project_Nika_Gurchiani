@@ -1,0 +1,44 @@
+<template>
+   <lightning-card title="File Operations" icon-name="action:upload">
+       <div class="slds-grid slds-wrap">
+           <!-- Left Pane for Upload -->
+           <div class="slds-col slds-size_1-of-2 slds-text-align_center slds-p-around_medium">
+               <lightning-file-upload
+                   label="Upload CSV"
+                   name="fileUploader"
+                   accept=".csv"
+                   onuploadfinished={handleUploadFinished}
+                   multiple>
+               </lightning-file-upload>
+           </div>
+           <!-- Right Pane for Download -->
+           <div class="slds-col slds-size_1-of-2 slds-text-align_center slds-p-around_medium">
+               <div>Download all Sensor records</div>
+               <lightning-button label="Download CSV" onclick={downloadCSV}></lightning-button>
+           </div>
+       </div>
+   </lightning-card>
+   <!-- Sensor records table -->
+   <lightning-card icon-name="standard:steps" title="Sensors" class="slds-var-m-around_x-large" variant="Narrow">
+      <div style="height: 450px;">
+         <lightning-datatable
+            show-row-number-column
+            hide-checkbox-column
+            key-field="id"
+            data={recordsPerPage}
+            columns={columns}
+            onrowaction={handleRowAction}>
+         </lightning-datatable>
+         <lightning-select name="Record Number" label="Record Number" value={value} options={options} onchange={handleChange} class="slds-float_left"></lightning-select>
+      </div>
+      <div class="slds-align_absolute-center" style="height:4rem">
+         <lightning-button variant="base" disabled={disableFirst} icon-name="utility:jump_to_left" label="" onclick={firstPage}></lightning-button>
+         <lightning-button variant="base" disabled={disableFirst} icon-name="utility:chevronleft" label="" onclick={previousPage}></lightning-button>
+         &nbsp;
+         <span class="slds-badge">Page {pageNumber} of {totalPages}</span>
+         &nbsp;
+         <lightning-button variant="base" disabled={disableLast} icon-name="utility:chevronright" label="" onclick={nextPage} ></lightning-button>
+         <lightning-button variant="base" disabled={disableLast} icon-name="utility:jump_to_right" label="" onclick={lastPage} ></lightning-button>
+      </div>
+   </lightning-card>
+</template>
