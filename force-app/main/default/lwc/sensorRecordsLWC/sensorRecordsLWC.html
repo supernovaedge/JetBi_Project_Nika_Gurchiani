@@ -8,7 +8,7 @@
           multiple></lightning-file-upload>
     </lightning-card>
     <lightning-card icon-name="standard:steps" title="Sensors" class="slds-var-m-around_x-large" variant="Narrow">
-        <lightning-button label="Download CSV" onclick={downloadCSV}></lightning-button>
+        <lightning-button icon-name="utility:download" label="Download CSV" onclick={downloadCSV} slot="actions"></lightning-button>
         <div style="height: 450px;">
           <lightning-datatable
              show-row-number-column
