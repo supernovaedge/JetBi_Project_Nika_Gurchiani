@@ -1,4 +1,17 @@
-public with sharing class sensorRecordsController {
+/*******************************************************************************************
+* @Name         sensorRecordsController
+* @Author       Nika Gurchiani
+* @Date         20.06.2024
+* @TestClass    sensorRecordsControllerTest
+* @Group        JetBI Bootcamp
+* @Description  This class is created to handle Sensor Creation as well as the LWC logics
+*******************************************************************************************/
+/* MODIFICATION LOG
+* Version          Developer          Date               Description
+*-------------------------------------------------------------------------------------------
+*  1.0              Nika            20.06.2024           Initial Creation                                                      
+*******************************************************************************************/
+public class sensorRecordsController {
     
     /****************************************************************************************************************************************
     * @Description  This Method is used to return CSV string for Sensor records.
