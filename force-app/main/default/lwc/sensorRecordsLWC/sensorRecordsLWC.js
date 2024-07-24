@@ -42,14 +42,13 @@ export default class sensorRecordsLWC extends LightningElement {
     
     @api recordId;
     @track uploadedFiles;
-    @track value;
+    @track recordNumber;
     @track recordsPerPage =[];
     
     
     //Options for records per page
     get options(){
         return [
-            
             {label:'10', value:'10'},
             {label:'25', value:'25'},
             {label:'50', value:'50'},
@@ -150,19 +149,19 @@ export default class sensorRecordsLWC extends LightningElement {
     getcustomMetadata({error,data}){
         
         if(data){
-            this.value = data;
+            this.recordNumber = data;
             this.error = undefined;
             this.paginationHelper();
             
         } else if(error){
             this.error = error;
-            this.value = undefined;
+            this.recordNumber = undefined;
         }
     }
     
     //On Change handler for Records Per page
     handleChange(event){    
-        this.value = event.target.value;   
+        this.recordNumber = event.target.value;   
         this.paginationHelper();
     }
     
@@ -191,7 +190,7 @@ export default class sensorRecordsLWC extends LightningElement {
     paginationHelper() {
         this.recordsPerPage = [];
         // calculate total pages
-        this.totalPages = Math.ceil(this.totalRecords / this.value);
+        this.totalPages = Math.ceil(this.totalRecords / this.recordNumber);
         
         // set page number 
         if (this.pageNumber <= 1) {
@@ -200,7 +199,7 @@ export default class sensorRecordsLWC extends LightningElement {
             this.pageNumber = this.totalPages;
         }
         // set records to display on current page 
-        for (let i = (this.pageNumber - 1) * this.value; i < this.pageNumber * this.value; i++) {
+        for (let i = (this.pageNumber - 1) * this.recordNumber; i < this.pageNumber * this.recordNumber; i++) {
             if (i === this.totalRecords) {
                 break;
             }

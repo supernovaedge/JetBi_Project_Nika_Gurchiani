@@ -18,7 +18,7 @@
              columns={columns}
              onrowaction={handleRowAction}>
           </lightning-datatable>
-          <lightning-select name="Record Number" label="Record Number" value={value} options={options} onchange={handleChange} class="slds-float_left"></lightning-select>
+          <lightning-select name="Record Number" label="Record Number" value={recordNumber} options={options} onchange={handleChange} class="slds-float_left"></lightning-select>
        </div>
        <div class="slds-align_absolute-center" style="height:4rem">
           <lightning-button variant="base" disabled={disableFirst} icon-name="utility:jump_to_left" label="" onclick={firstPage}></lightning-button>
