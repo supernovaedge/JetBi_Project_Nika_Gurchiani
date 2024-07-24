@@ -56,7 +56,7 @@ public class sensorRecordsController {
                 String row = rows[i];
                          
                 List<String> data = row.split(',');
-                System.Debug('deb'+data);
+                // System.Debug('deb'+data);
                 Sensor__c record = new Sensor__c();
                 record.Status__c = data[0];
                 record.Sensor_Model__c = data[1];
