@@ -1,4 +1,4 @@
-@isTest
+@isTest(seeAllData = false)
 public class sensorRecordsControllerTest {
     
     //method for creating all test data
@@ -39,8 +39,8 @@ public class sensorRecordsControllerTest {
     //method for checking LWC controller
     @isTest
     public static void testScenarioFetchAccount(){
-        Sensor__c sens = [Select id, Sensor_model__c from Sensor__c where Sensor_model__c = 'test Test'];
-        
+        List<Sensor__c> sens = [Select id, Sensor_model__c from Sensor__c where Sensor_model__c = 'test Test'];
+        assert.areEqual(1, sens.size());
         sensorRecordsController.getSensors();
     }
     
