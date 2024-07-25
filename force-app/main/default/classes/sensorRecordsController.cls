@@ -18,17 +18,14 @@ public class sensorRecordsController {
     *********************************************************************************************************************************************/
     @AuraEnabled
     public static String downloadSensorRecordsCSV() {
-        // Query for Sensor records
-        List<Sensor__c> sensors = [SELECT Status__c, Sensor_Model__c, Base_Station__c, Base_Station__r.Name FROM Sensor__c ORDER BY CreatedDate DESC];
         
         // CSV column headers
         String csvString = 'Status,Sensor Model,Base Station ID,Base Station Name\n';
         
         // Append each record data to the CSV string
-        for(Sensor__c sensor : sensors) {
-            String baseStationId = sensor.Base_Station__c != null ? sensor.Base_Station__c : '';
-            String baseStationName = sensor.Base_Station__r != null ? sensor.Base_Station__r.Name : '';
-            csvString += sensor.Status__c + ',' + sensor.Sensor_Model__c + ',' + baseStationId + ',' + baseStationName + '\n';
+        for(Sensor__c sensor : [SELECT Status__c, Sensor_Model__c, Base_Station__c, Base_Station__r.Name FROM Sensor__c ORDER BY CreatedDate DESC]) {
+
+            csvString += sensor.Status__c + ',' + sensor.Sensor_Model__c + ',' + sensor.Base_Station__c + ',' + sensor.Base_Station__r.Name + '\n';
         }
         
         return csvString;
@@ -56,7 +53,7 @@ public class sensorRecordsController {
                 String row = rows[i];
                          
                 List<String> data = row.split(',');
-                // System.Debug('deb'+data);
+                System.Debug('deb'+data);
                 Sensor__c record = new Sensor__c();
                 record.Status__c = data[0];
                 record.Sensor_Model__c = data[1];
